@@ -1,0 +1,5 @@
+export const ACTIONS = {
+    ADD_CHAT: 'ADD_CHAT',
+    REMOVE_CHAT: 'REMOVE_CHAT',
+    SHOW_CHATS: 'SHOW_CHATS'
+}
