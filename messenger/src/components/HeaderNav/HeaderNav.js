@@ -1,6 +1,6 @@
 import React,  { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import './HeaderNav.scss';
+import './HeaderNav.css';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -21,7 +21,7 @@ export default class HeaderNav extends Component {
                         
                         </IconButton>
                         <Typography variant="title" color="inherit">
-                            Photos
+                            Vtelege
                         </Typography>
                     </Toolbar>
                 </AppBar>

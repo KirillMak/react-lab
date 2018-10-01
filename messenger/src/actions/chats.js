@@ -1,11 +1,29 @@
 import { ACTIONS } from '../constants/ActionTypes';
 
-export const addChat = (id) => {
-    type: ACTIONS.ADD_CHAT,
-    id
-}
+let nextChatId = 1;
 
-export const showChats = (chats) => {
+export const addChat = () => ({
+    type: ACTIONS.ADD_CHAT,
+    messages: [],
+    id: nextChatId++
+})
+
+export const toggleChat = (id) => ({
+    type: ACTIONS.TOGGLE_CHAT,
+    id
+})
+
+export const setChatBodyVisibility = (id) => ({
+    type: ACTIONS.CHAT_BODY_VISIBILITY,
+    id
+})
+
+export const showChatbyId = (id) => ({
+    type: ACTIONS.SHOW_CHAT_BY_ID,
+    id
+})
+
+export const showChats = (chats) => ({
     type: ACTIONS.SHOW_CHATS,
     chats
-}
+})

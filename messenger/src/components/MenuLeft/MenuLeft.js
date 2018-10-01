@@ -1,5 +1,5 @@
 import React,  { Component } from 'react';
-import './MenuLeft.scss';
+import './MenuLeft.css';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,9 +10,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
+//import MenuLeftContainer from '../../containers/MenuLeftContainer';
+import { connect } from 'react-redux';
 
-export default class MenuLeft extends React.Component {
+export default class MenuLeft extends Component {
   state = {
     selectedIndex: 1,
   };
@@ -21,50 +25,47 @@ export default class MenuLeft extends React.Component {
     this.setState({ selectedIndex: index });
   };
   render() {
-    const { classes } = this.props;
-
+    console.log( this.props);
+    let { chats } = this.props.chats;
+    console.log(chats);
     return (
-            <div>
-                <List component="nav">
-                    <ListItem
-                    button
-                    selected={this.state.selectedIndex === 0}
-                    onClick={event => this.handleListItemClick(event, 0)}
-                    >
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Inbox" />
+            <div className = "MenuLeft">
+
+                <List component="nav" >
+                    <ListItem>
+                        <Button variant="fab" color="primary" aria-label="Add"  onClick = {() => this.props.onAddChatClick()}>
+                            <AddIcon />
+                        </Button>
                     </ListItem>
-                    <ListItem
-                    button
-                    selected={this.state.selectedIndex === 1}
-                    onClick={event => this.handleListItemClick(event, 1)}
-                    >
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Drafts" />
-                    </ListItem>
+
+                    { chats.map((item, idx) => (
+                        <ListItem 
+                            key = {idx}
+                            button
+                            selected={this.state.selectedIndex === idx}
+                            onClick={event =>  { 
+                                                    this.handleListItemClick(event, idx);
+                                                    this.props.onSetChatVisibility(idx);
+                                                }
+                                    }
+                        >
+                            <ListItemIcon>
+                                <DraftsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Chat " + item.id} />
+                        </ListItem>
+                    ))}
                 </List>
-                <Divider />
-                <List component="nav">
-                    <ListItem
-                    button
-                    selected={this.state.selectedIndex === 2}
-                    onClick={event => this.handleListItemClick(event, 2)}
-                    >
-                    <ListItemText primary="Trash" />
-                    </ListItem>
-                    <ListItem
-                    button
-                    selected={this.state.selectedIndex === 3}
-                    onClick={event => this.handleListItemClick(event, 3)}
-                    >
-                    <ListItemText primary="Spam" />
-                    </ListItem>
-            </List>
+
         </div>
         )
     }
 }
+
+
+
+const mapStateToProps = state => ({
+    chats: state.chats
+  });
+//console.log(MenuLeft);
+connect(mapStateToProps)(MenuLeft);

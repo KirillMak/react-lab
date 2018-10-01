@@ -1,0 +1,22 @@
+
+/*
+.chat-layout {
+    display: flex;
+    flex-direction: column;
+}
+*/
+.conversation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    background: rgba(155,155,155,0.4);
+    margin-bottom:1%;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+    height: 200px;
+    min-height: 150px !important;
+}
+
+

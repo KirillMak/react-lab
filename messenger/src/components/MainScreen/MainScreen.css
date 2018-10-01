@@ -1,0 +1,12 @@
+.left {
+    /*display:flex;*/
+}
+
+.MainScreen {
+    padding: 4%;
+}
+
+.main-screen-layout {
+    display:flex;
+    /*flex-direction: column;*/
+}
