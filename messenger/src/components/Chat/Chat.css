@@ -9,7 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    flex-direction: row;
+    min-height: 300px;
     background: rgba(155,155,155,0.4);
     margin-bottom:1%;
 }
@@ -19,4 +20,11 @@
     min-height: 150px !important;
 }
 
-
+.from_current_user {
+    display:flex;
+    align-items: flex-end;
+    text-align: right;
+    background:rgba(0,255,0,0.3);
+    margin: 5px;
+    border-radius:3%;
+}

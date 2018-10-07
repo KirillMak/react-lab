@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import MenuLeftContainer from '../../containers/MenuLeftContainer';
 import ChatContainer from '../../containers/ChatContainer';
 import './MainScreen.css';
+import UsersMenu from '../UsersMenu';
+import UserContainer from '../../containers/UserContainer';
 
 export default class MainScreen extends Component {
     constructor(props){
@@ -22,7 +24,12 @@ export default class MainScreen extends Component {
                             <MenuLeftContainer/>
                         </Paper>
                     </Grid>
-                    <Grid item xs={9}>
+                    <Grid item xs={3}>
+                        <Paper>
+                            <UserContainer/>
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={6}>
                         <ChatContainer/>
                     </Grid>
                 </Grid>

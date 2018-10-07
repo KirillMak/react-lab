@@ -2,9 +2,11 @@ import { ACTIONS } from '../constants/ActionTypes';
 
 let nextChatId = 1;
 
-export const addChat = () => ({
+export const addChat = (user_id1,user_id2) => ({
     type: ACTIONS.ADD_CHAT,
     messages: [],
+    user_id1,
+    user_id2,
     id: nextChatId++
 })
 

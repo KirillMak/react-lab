@@ -11,14 +11,10 @@ import registerServiceWorker from './registerServiceWorker';
 const initialState = {};
 const store = createStore(mainReducer, initialState);
 
-//console.log();
-/*
 let unsubscribe = store.subscribe(() =>
   console.log(store.getState())
-) */
-/*store.dispatch(actions.addChat(1));
-store.dispatch(actions.addChat(4));
-store.dispatch(actions.showChats({"chat":1}))*/
+) 
+
 ReactDOM.render(
     <Provider store = {store}>
         <App />

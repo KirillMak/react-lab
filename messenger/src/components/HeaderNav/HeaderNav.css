@@ -1,0 +1,14 @@
+.login {
+    text-align: center;
+    background: white;
+    position: absolute;
+    left: calc(50% - 300px/2);
+    top:calc(50% - 300px/2);
+    width:350px;
+    height:300px;
+    border-radius:2%;
+}
+
+.btn-login {
+    margin: 5% !important;
+}

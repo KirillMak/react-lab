@@ -1,4 +1,5 @@
 import React,  { Component } from 'react';
+import socketIOClient from "socket.io-client";
 import MenuLeft from '../MenuLeft';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -17,40 +18,57 @@ export default class Chat extends Component {
         }
     }
 
+    sendMessage = () => {
+        const socket = socketIOClient("localhost:3000");
+        socket.emit('send_message', this.state.mdeValue);
+      }
+    setColor = (color) => {
+        this.setState({ color })
+      }
+
     handleKeyPress = (event, visible_chat_id) => {
-        console.log(visible_chat_id);
-        console.log(event.key);
-        console.log(this.state.mdeValue);
         let mde = this.state.mdeValue;
+        let { current_user, chats } = this.props;
+        console.log(this.props)
         if(event.key == 'Enter'){
-            //this.setState({ mdeValue: 'test' }, this.forceUpdate() );
-            this.props.onSendMessageClick(visible_chat_id, 1, mde);
+            this.props.onSendMessageClick(visible_chat_id, current_user.current_user.id, chats.chats[visible_chat_id].user_id2, mde)
         }
       }
 
     handleChange = value => {
-        //if (value instanceof String){
             this.setState({ mdeValue: value });
-        //};
       };
 
     renderWelcomeMessage = () => (
         <span>Conversation is empty. Write a message to start the conversation!</span>
     )
 
-    renderChatConversation = (messages) => (
-        <span>
-           { messages.map((message, idx) => (<div key = {idx}>{message.text}</div>)) }
-        </span>
-    )
+    renderChatConversation = (messages) => {
+        const current_user = this.props.current_user.current_user;
+
+        return(
+            <div>
+            { messages.map((message, idx) => {
+                if (message.from === current_user.id) {
+                    return (<div key = {idx} className = "from_current_user">{message.text}</div>)
+                } else {
+                    return (<div key = {idx} className = "to_current_user">{message.text}</div>)
+                } 
+                })
+            }
+            </div>
+    )}
 
     render(){
-        console.log(this.props);
+        let { chats } = this.props.chats;
         let { messages } = this.props.messages;
         let { visible_chat_id } = this.props.visible_chat_id;
-        //console.log(visible_chat_id);
-        console.log(messages);
-        //console.log("mde: ",this.state.mdeValue);
+        let { current_user } = this.props.current_user;
+        
+        const socket = socketIOClient("localhost:3000");
+        socket.on('send_message', (message) => {
+            this.props.onSendMessageClick(visible_chat_id, 1, message);
+        })
         return (
             <main className = "chat-layout">
                 <div className = "conversation">
@@ -62,7 +80,7 @@ export default class Chat extends Component {
                             onChange={this.handleChange}
                             value = {this.state.mdeValue}
                         />
-                        <Button variant="contained" color="primary" onClick = { ()=> this.props.onSendMessageClick(visible_chat_id, 1, this.state.mdeValue)}>
+                        <Button variant="contained" color="primary" onClick = { ()=> this.props.onSendMessageClick(visible_chat_id, current_user.id, chats[visible_chat_id].user_id2, this.state.mdeValue)}>
                             Send message
                         </Button>
                     </form>

@@ -1,6 +1,4 @@
 import React,  { Component } from 'react';
-import './MenuLeft.css';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -17,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 //import MenuLeftContainer from '../../containers/MenuLeftContainer';
 import { connect } from 'react-redux';
 
-export default class MenuLeft extends Component {
+export default class UsersMenu extends Component {
   state = {
     selectedIndex: 1,
   };
@@ -26,23 +24,19 @@ export default class MenuLeft extends Component {
     this.setState({ selectedIndex: index });
   };
   render() {
-    let { chats } = this.props.chats;
-  
+    
+    let users  = [{id: 1, username: "Petr", surname: "Alexandrov" },{id: 2, username: "Ivan", surname: "Alexandrov" }];
+    let { current_user } = this.props.current_user;
     return (
-            <div className = "MenuLeft">
-
+            <div className = "UsersMenu">
                 <List component="nav" >
                     <ListItem>
                         <Typography variant="title" gutterBottom>
-                            Current chats
+                            Users
                         </Typography>
-                        {/*<Button variant="fab" color="primary" aria-label="Add"  onClick = {() => this.props.onAddChatClick()}>
-                            <AddIcon />
-                        </Button>*/}
                     </ListItem>
                     <Divider/>
-
-                    { chats.map((item, idx, chats) => (
+                    { users.map((item, idx) => (
                         <ListItem 
                             key = {idx}
                             button
@@ -56,7 +50,10 @@ export default class MenuLeft extends Component {
                             <ListItemIcon>
                                 <DraftsIcon />
                             </ListItemIcon>
-                            <ListItemText primary={`Chat ${item.id}: user ${chats[idx].user_id2}` } />
+                            <ListItemText primary={`${item.id} ${item.username} ${item.surname}`} />
+                            <Button variant="fab" color="primary" aria-label="Add"  onClick = {() => this.props.onAddChatClick(Number(current_user.id), ++idx)}>
+                                <AddIcon />
+                            </Button>
                         </ListItem>
                     ))}
                 </List>
@@ -69,7 +66,7 @@ export default class MenuLeft extends Component {
 
 
 const mapStateToProps = state => ({
-    chats: state.chats
+    users: state.users
   });
 //console.log(MenuLeft);
-connect(mapStateToProps)(MenuLeft);
+connect(mapStateToProps)(UsersMenu);
